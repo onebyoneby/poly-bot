@@ -201,84 +201,7 @@ MAX_POSITIONS=10
 
 # 止损比例（10% = 亏损达到入场金额的10%时平仓）
 STOP_LOSS_PCT=0.10
-```
 
-### 策略参数
-
-```bash
-# === 套利策略 ===
-# 最小套利利润率（1% = YES+NO 价格之和 < $0.99 时触发）
-MIN_ARBITRAGE_PROFIT=0.01
-
-# === 闪崩策略 ===
-# 触发阈值（概率下跌15%时买入）
-FLASH_CRASH_DROP_THRESHOLD=0.15
-# 目标回升幅度（回升8%时卖出）
-FLASH_CRASH_RECOVERY_TARGET=0.08
-# 止损（下跌5%时止损）
-FLASH_CRASH_STOP_LOSS=0.05
-
-# === 跟单共识策略 ===
-# 最低跟单条件：跟单目标 PNL > $100,000
-COPY_TRADE_MIN_PROFIT=100000
-
-# === 动量策略 ===
-# 回看窗口（分钟）
-MOMENTUM_LOOKBACK_MINUTES=30
-# 最小变化幅度（5%）
-MOMENTUM_MIN_CHANGE=0.05
-```
-
-### 实时跟单配置（核心）
-
-```bash
-# --- 轮询 ---
-# 轮询间隔（秒），越小越快但 API 压力越大
-COPY_POLL_INTERVAL=2
-
-# --- 跟单金额 ---
-# 默认单笔跟单金额（USDC）
-COPY_BASE_SIZE=10
-# 单笔最小/最大金额
-COPY_MIN_SIZE=5
-COPY_MAX_SIZE=15
-# 共识跟单金额范围（多个大佬同时买入时）
-COPY_CONSENSUS_MIN_SIZE=20
-COPY_CONSENSUS_MAX_SIZE=30
-
-# --- 过滤规则 ---
-# 价格过滤：只跟 0.10-0.75 之间的价格（排除彩票和低赔率）
-COPY_MIN_PRICE=0.10
-COPY_MAX_PRICE=0.75
-# FOK 滑点保护（2%）
-COPY_SLIPPAGE=0.02
-# 止损比例（15%）
-COPY_STOP_LOSS_PCT=0.15
-# 单市场最大持仓（USDC）
-COPY_MARKET_MAX_POSITION=30
-# 日最大亏损限额（USDC）
-COPY_DAILY_LOSS_LIMIT=50
-# 共识时间窗口（秒，30分钟内多人买入算共识）
-COPY_CONSENSUS_WINDOW=1800
-# T2 共识最低钱包数
-COPY_CONSENSUS_MIN_WALLETS=3
-# 大佬最小下注额（过滤噪音小单）
-COPY_WHALE_MIN_USDC=5
-# T1 独跟最小金额（低于此需2+T1确认）
-COPY_T1_MIN_SOLO_USDC=50
-# 最大延迟（秒，超过跳过）
-COPY_MAX_DELAY_SEC=120
-# 只跟 N 天内结算的市场
-COPY_MAX_MARKET_DAYS=7
-
-# --- 止盈 ---
-# 自动止盈：涨10%卖出
-COPY_AUTO_TP_PCT=0.10
-# 追踪止盈激活：涨6%开始追踪
-COPY_TRAILING_ACTIVATE_PCT=0.06
-# 追踪回撤：从峰值回落3%卖出
-COPY_TRAILING_STOP_PCT=0.03
-```
 
 ### 跟单钱包配置
 
@@ -372,9 +295,7 @@ python main.py --strategy flash_crash    # 闪崩
 python main.py --strategy copy_trade     # 跟单共识
 python main.py --strategy momentum       # 动量
 
-# 实时跟单模式
-python main.py --copy                    # DRY_RUN
-python main.py --copy --live             # 实盘
+
 ```
 
 ### 方式四：独立模块
@@ -488,21 +409,6 @@ python wechat_bot.py
 
 ---
 
-## 后台部署（Linux 服务器）
-
-### pm2 管理（推荐）
-
-```bash
-npm install -g pm2
-
-# 启动（修改 start.sh 中的 PYTHON 路径后）
-pm2 start ./start.sh --name polymarket-bot -- --live
-pm2 save && pm2 startup
-
-# 常用命令
-pm2 logs polymarket-bot
-pm2 restart polymarket-bot
-pm2 stop polymarket-bot
 ```
 
 ### systemd
