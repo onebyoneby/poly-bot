@@ -1,0 +1,40 @@
+# Environment (contains private keys!)
+.env
+.env.bak.*
+.env.local
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.venv_mac/
+
+# Logs & State
+logs/
+trading.log
+*.log
+reports/
+
+# IDE
+.cursor/
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project notes (may contain sensitive info)
+mermory.md
+*+mermory.md
+leaderboard_analysis_*.md
+tracket-research-report.md
+web3-job-market-china-2026.md
+
+# Backup & state files
+.env.backup_*
+engine_state.json
+QR.png
+trading.log.*
+.claude/
